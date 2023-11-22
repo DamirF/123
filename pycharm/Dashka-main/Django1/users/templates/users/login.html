@@ -1,36 +1,43 @@
 {%extends 'Djangoapp/layout.html' %}
 {% load static %}
 
-{% block styles %}
-<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% block bok %}{% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'Djangoapp/css/login.css' %}">
 {% endblock %}
 
 {% block title %}Авторизация{% endblock %}
 
 {% block content %}
 <div class="authorization__container _container">
-    <div class="authorization__title">Авторизация</div>
+    <img class="authorization__logo" src="{% static 'Djangoapp/img/Logo-fotor-bg-remover-20231010155255.png' %}" alt="Лого">
     <div class="authorization__form">
         <form method="post">
             {% csrf_token %}
             {% for f in form %}
             <div class="form__data">
-                <div class="form__label">
-                    <label class="label__form" for="{{f.id_for_label}}">{{f.label}}:</label>
-                </div>
-                <div class="form__form">{{f}}</div>
+                <input id="{{f.id_for_label}}" placeholder="{{f.label}}" name="{{f.name}}">
             </div>
             {% endfor %}
-            <div class="authorization__button">
-                <button class="button__form" type="submit">Войти</button>
+<!--            <div class="authorization__button">-->
+<!--                <button class="button__form" type="submit">Войти</button>-->
+<!--            </div>-->
+
+            <div class="root-btn-group">
+                <button class="root-btn btn-info" type="submit">Войти как преподаватель</button>
+            </div>
+
+            <div class="root-btn-group">
+                <button class="root-btn btn-info" type="submit">Войти как студент</button>
+                <button class="root-btn btn-info"><a href="{% url 'registrations' %}">Регистрация</a></button>
             </div>
 
         </form>
-        <div class="registration">
-            <span class="registration__label">У вас ещё нет аккаунта?</span>
-            <a href="{% url 'registrations' %}" class="registartion__link">Зарегистрироваться</a>
-        </div>
+<!--        <div class="registration">-->
+<!--            <span class="registration__label">У вас ещё нет аккаунта?</span>-->
+<!--            <a href="{% url 'registrations' %}" class="registartion__link">Зарегистрироваться</a>-->
+<!--        </div>-->
     </div>
     {% if messages %}
     {% for message in messages %}
@@ -49,6 +56,3 @@
 </div>
 {% endblock %}
 
-{% block footer %}
-{% include 'RealEstateApp/footer.html' %}
-{% endblock %}
